@@ -49,7 +49,8 @@ function renderAxes(newXScale, xAxis) {
 function renderCircles(circlesGroup, newXScale, chosenXAxis) {
   circlesGroup.transition()
     .duration(1000)
-    .attr("cx", d => newXScale(d[chosenXAxis]));
+    .attr("cx", d => newXScale(d[chosenXAxis]))
+    .text(function(d){return d.abbr});
     return circlesGroup;
 }
 
@@ -86,13 +87,12 @@ d3.csv("assets/data/data.csv").then((data, err) => {
     if (err) throw err;
     // parse data
     console.log(data);
-    console.log(data.healtcare);
     data.forEach(function(data) {
         data.poverty = +data.poverty;
         data.age = +data.age;
         data.obesity = +data.obesity;
         data.income = +data.income;
-        data.healthcare = +data.healtcare;
+        data.healthcare = +data.healtcareLow;
         data.smokes = +data.smokes;
     });
     // xLinearScale function above csv import
@@ -116,7 +116,7 @@ d3.csv("assets/data/data.csv").then((data, err) => {
     // append y axis
     chartGroup.append("g")
         .call(leftAxis);
-    
+    //append circle
     var circlesGroup = chartGroup.selectAll("circle")
         .data(data)
         .enter()
@@ -127,11 +127,16 @@ d3.csv("assets/data/data.csv").then((data, err) => {
         .attr("fill", "lightblue")
         .attr("opacity", ".5");
 
-    circlesGroup.append("text")
+    //append state abbr text to the circle 
+    chartGroup.selectAll("text")
+        .data(data)
+        .enter()
+        .append("text")
         .attr("class", "stateText")
-        .attr("dx", function(d){return -2})
-        .text(function(d){return d.abbr});
-
+        .attr("x", d=> xLinearScale(d[chosenXAxis]) )
+        .attr("y", d=> yLinearScale(d["obesity"])+2)
+        .attr('font-size', 8)
+        .text(d=> d.abbr);
         
     // Create group for two x-axis labels
     var XlabelsGroup = chartGroup.append("g")
@@ -157,11 +162,11 @@ d3.csv("assets/data/data.csv").then((data, err) => {
         .attr("y", 0 - margin.left)
         .attr("x", 0 - (height / 2))
         .attr("dy", "1em")
-        .classed("axis-text", true)
+        .classed("atext", true)
         .text("Obesity(%)");
 
-    // updateToolTip function above csv import
-    var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+    // updateToolTip function
+    circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 
     // x axis labels event listener
     XlabelsGroup.selectAll("text")

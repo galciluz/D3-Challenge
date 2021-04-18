@@ -26,7 +26,8 @@
 /* font size dependent on radius, see app.js */
 .stateText {
   font-family: sans-serif;
-  fill:black;
+  font-weight: bold;
+  fill: white;
   text-anchor: middle;
 }
 
@@ -54,9 +55,9 @@
 
 /* Mobile Rules */
 @media screen and (max-width: 530px) {
-  /*.stateText {
+  .stateText {
     display: none;
-  }*/
+  }
 
   .aText {
     font-size: 14px;

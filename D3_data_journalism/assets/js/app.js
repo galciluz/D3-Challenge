@@ -163,19 +163,19 @@ d3.csv("assets/data/data.csv").then((data, err) => {
 
   var povertyLabel = XlabelsGroup.append("text")
       .attr("x", 0)
-      .attr("y", 20)
+      .attr("y", 15)
       .attr("value", "poverty") // value to grab for event listener
       .classed("active", true)
       .text("In Poverty(%)");
   var houseLabel = XlabelsGroup.append("text")
       .attr("x", 0)
-      .attr("y", 40)
+      .attr("y", 35)
       .attr("value", "income") // value to grab for event listener
       .classed("inactive", true)
       .text("House Hold Income (Mediam)");
   var ageLabel = XlabelsGroup.append("text")
       .attr("x", 0)
-      .attr("y", 60)
+      .attr("y", 55)
       .attr("value", "age") // value to grab for event listener
       .classed("inactive", true)
       .text("Age(Median)");
@@ -297,7 +297,7 @@ d3.csv("assets/data/data.csv").then((data, err) => {
         .attr("y", d=> yLinearScale(d[chosenYAxis]))
         .text(d=> d.abbr);
       // changes classes to change bold text
-      if (chosenXAxis === "healthcare") {
+      if (chosenYAxis === "healthcare") {
           healthLabel
             .classed("active", true)
             .classed("inactive", false);
@@ -308,7 +308,7 @@ d3.csv("assets/data/data.csv").then((data, err) => {
             .classed("active", false)
             .classed("inactive", true);
       }
-      else if (chosenXAxis === "smokes") {
+      else if (chosenYAxis === "smokes") {
         smokeLabel
             .classed("active", true)
             .classed("inactive", false);

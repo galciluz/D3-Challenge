@@ -114,12 +114,12 @@ d3.csv("assets/data/data.csv").then((data, err) => {
     // append y axis text
     chartGroup.append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 0 - margin.left)
-        .attr("x", 0 - (height / 2))
+        .attr("y",-60)
+        .attr("x", -200)
         .attr("dy", "1em")
         .attr("value", "healthcare")
-        .classed("atext", true)
-        .text("Health Care(%)");
+        .classed("aText", true)
+        .text("Lacks Health Care (%)");
 
     // updateToolTip function
     circlesGroup = updateToolTip(circlesGroup);
